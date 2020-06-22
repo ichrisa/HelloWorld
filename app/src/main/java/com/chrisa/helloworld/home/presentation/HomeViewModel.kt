@@ -1,16 +1,17 @@
 package com.chrisa.helloworld.home.presentation
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chrisa.helloworld.util.CoroutineDispatchers
 import com.chrisa.helloworld.home.data.HomeDataSource
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
-class HomeViewModel(
+class HomeViewModel @ViewModelInject constructor(
     private val homeDataSource: HomeDataSource,
-    val dispatcher: CoroutineContext
+    private val dispatchers: CoroutineDispatchers
 ) : ViewModel() {
 
     private val _greetingResource = MutableLiveData<GreetingResource>()
@@ -18,7 +19,7 @@ class HomeViewModel(
         get() = _greetingResource
 
     fun loadGreeting() {
-        viewModelScope.launch(dispatcher) {
+        viewModelScope.launch(dispatchers.io) {
             try {
                 val stayDetail = homeDataSource.loadGreeting()
                 _greetingResource.postValue(GreetingResource.Success(stayDetail))

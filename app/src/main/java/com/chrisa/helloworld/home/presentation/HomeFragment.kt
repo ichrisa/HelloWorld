@@ -1,6 +1,5 @@
 package com.chrisa.helloworld.home.presentation
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -8,21 +7,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.chrisa.helloworld.R
 import com.google.android.material.snackbar.Snackbar
-import dagger.android.support.AndroidSupportInjection
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
-    @Inject
-    lateinit var viewModelFactory: HomeViewModelFactory
-
-    private val viewModel: HomeViewModel by viewModels { viewModelFactory }
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

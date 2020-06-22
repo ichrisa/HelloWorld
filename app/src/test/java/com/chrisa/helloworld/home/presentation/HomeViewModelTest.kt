@@ -3,6 +3,7 @@ package com.chrisa.helloworld.home.presentation
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.chrisa.core.util.test
 import com.chrisa.helloworld.home.data.HomeDataSource
+import com.chrisa.helloworld.util.CoroutineDispatchers
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.every
@@ -25,15 +26,19 @@ class HomeViewModelTest {
 
     private val testDispatcher = TestCoroutineDispatcher()
     private val testCoroutineScope = TestCoroutineScope(testDispatcher)
+    private val dispatchers = mockk<CoroutineDispatchers>(relaxed = true)
     private val dataSource = mockk<HomeDataSource>(relaxed = true)
     private lateinit var sut: HomeViewModel
 
     @Before
     fun setup() {
+
+        every { dispatchers.io } returns testDispatcher
         Dispatchers.setMain(testDispatcher)
+
         sut = HomeViewModel(
             homeDataSource = dataSource,
-            dispatcher = Dispatchers.Main
+            dispatchers = dispatchers
         )
     }
 
