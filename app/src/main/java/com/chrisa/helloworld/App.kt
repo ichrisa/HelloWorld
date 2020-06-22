@@ -1,12 +1,7 @@
 package com.chrisa.helloworld
 
-import dagger.android.AndroidInjector
-import dagger.android.support.DaggerApplication
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class App : DaggerApplication() {
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerApplicationComponent.builder()
-            .build()
-    }
-}
-
+@HiltAndroidApp
+class App : Application()

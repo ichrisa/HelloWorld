@@ -4,16 +4,18 @@ import com.chrisa.helloworld.home.data.api.GreetingApi
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
+@InstallIn(ApplicationComponent::class)
 @Module
 internal object DataModule {
 
-    @JvmStatic
     @Provides
     fun moshi(): Moshi {
         return Moshi.Builder()
@@ -21,7 +23,6 @@ internal object DataModule {
     }
 
     @Singleton
-    @JvmStatic
     @Provides
     fun okHttpClient(): OkHttpClient {
 
@@ -34,7 +35,6 @@ internal object DataModule {
         return builder.build()
     }
 
-    @JvmStatic
     @Provides
     fun retrofit(
         okHttpClient: OkHttpClient,
@@ -47,7 +47,6 @@ internal object DataModule {
             .build()
     }
 
-    @JvmStatic
     @Provides
     fun cakeApi(retrofit: Retrofit): GreetingApi {
         return retrofit.create(GreetingApi::class.java)
