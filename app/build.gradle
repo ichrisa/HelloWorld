@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion 29
@@ -60,8 +61,10 @@ dependencies {
     implementation "com.google.dagger:dagger:${versions.dagger}"
     implementation "com.google.dagger:dagger-android:${versions.dagger}"
     implementation "com.google.dagger:dagger-android-support:${versions.dagger}"
+    implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
     kapt "com.google.dagger:dagger-android-processor:${versions.dagger}"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     implementation "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}"
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
